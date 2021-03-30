@@ -1,0 +1,15 @@
+INSERT INTO carros (id, nome, marca, modelo, valor) VALUES
+    (1, 'corsa', 'GM', 'SEDAN', '50'),
+    (2, 'uno', 'fiat', 'HATCH', '30'),
+    (3, 'gol', 'volkswagen', 'HATCH', '80');
+
+INSERT INTO clientes (id, nome, sobrenome, data_nascimento, telefone, email, endereco) VALUES
+    (1, 'Carlos', 'Vitor', '1995-03-12', '49999483710', 'carlos.vitor@gmail.com', 'Rua das acacias, 65 E, 9438192393, Chapeco/SC'),
+    (2, 'Eduardo', 'José', '1998-05-15', '4988391847', 'eduardo.jose@gmail.com', 'Rua das laranjeiras, 77 D, 3458192393, São Paulo/SP');
+
+INSERT INTO CNH (cliente_id, numero, categoria) VALUES
+    (1, '9483817', 'A'),
+    (2, '3483914', 'AB');
+
+insert into locacoes (id, carro_id, cliente_id, data_locacao, estimativa_devolucao, valor_cobrado) VALUES
+    (1, 2, 1, '2021-02-05', '2021-03-05', '900');

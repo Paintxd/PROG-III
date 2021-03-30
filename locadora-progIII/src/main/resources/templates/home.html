@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="br">
+<head>
+    <title>Locadora do Zé</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <a th:href="@{/cliente/cadastro}"><button>Cadastrar cliente</button></a>
+    <a th:href="@{/carro/cadastro}"><button>Cadastrar carro</button></a>
+    <a th:href="@{/locacao/cadastro}"><button>Cadastrar locacao</button></a>
+
+    <h2>Locacoes</h2>
+    <ul th:each="locacao: ${locacoes}">
+        <li>
+            <p th:text="'Carro: ' + ${locacao.carro.nomeMarca}"></p>
+            <p th:text="'Cliente: ' + ${locacao.cliente.nomeCompleto}"></p>
+            <p th:text="'Data locação: ' + ${#dates.format(locacao.dataLocacao, 'dd-MM-yyyy')}"></p>
+            <p th:text="'Estimativa devolução: ' + ${#dates.format(locacao.estimativaDevolucao, 'dd-MM-yyyy')}"></p>
+            <span th:if="${locacao.devolucao} != null">
+                <p th:text="'Data devolução: ' + ${#dates.format(locacao.devolucao, 'dd-MM-yyyy')}"></p>
+                <p th:text="'Valor pago: ' + ${locacao.valorPago}"></p>
+            </span>
+            <span th:unless="${locacao.devolucao} != null">
+                <p th:text="'Valor cobrado: ' + ${locacao.valorCobrado}"></p>
+                <a th:href="@{/locacao/finalizar/{id}(id=${locacao.id})}"><button>Finalizar locação</button></a>
+            </span>
+
+        </li>
+    </ul>
+
+    <h2>Clientes</h2>
+    <ul th:each="cliente : ${clientes}">
+        <li>
+            <p th:text="'Nome completo: ' + ${cliente.nomeCompleto}"></p>
+            <p th:text="'Data nascimento: ' + ${#dates.format(cliente.dataNascimento, 'dd-MM-yyyy')}"></p>
+            <p th:text="'Telefone: ' + ${cliente.telefone}"></p>
+            <p th:text="'Email: ' + ${cliente.email}"></p>
+            <p th:text="'Endereço: ' + ${cliente.endereco}"></p>
+            <p>CNH</p>
+            <p th:text="'Numero: ' + ${cliente.cnh.numero}"></p>
+            <p th:text="'Categoria: ' + ${cliente.cnh.categoria}"></p>
+        </li>
+    </ul>
+
+    <h2>Carros</h2>
+    <ul th:each="carro : ${carros}">
+        <li>
+            <p th:text="'Nome: ' + ${carro.nome}"></p>
+            <p th:text="'Marca: ' + ${carro.marca}"></p>
+            <p th:text="'Modelo: ' + ${carro.modelo}"></p>
+            <p th:text="'Valor Locação: ' + ${carro.valorLocacao}"></p>
+            <p>Atualizar Valor Locação</p>
+            <form action="#" th:action="@{/carro/valor}" th:object="${valorCarroDto}" method="post">
+                <input type="hidden" th:value="${carro.id}" name="id"/>
+                <input type="number" th:field="*{valorLocacao}" th:placeholder="${carro.valorLocacao}" step="0.1" />
+                <input type="submit" value="Atualizar" />
+            </form>
+        </li>
+    </ul>
+</body>
+</html>
